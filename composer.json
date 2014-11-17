@@ -25,7 +25,7 @@
         "yiisoft/yii2": "*",
         "infoweb-internet-solutions/yii2-cms": "*",
         "kartik-v/yii2-widgets": "*",
-        "kartik-v/yii2-grid": "*",
+        "kartik-v/yii2-grid": "*"
     },
     "autoload": {
         "psr-4": {
