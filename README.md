@@ -33,7 +33,7 @@ Your backend configuration as follows:
 return [
     ...
     'modules' => [
-        'settings' => [
+        'email' => [
             'class' => 'infoweb\email\Module'
         ],
     ],
