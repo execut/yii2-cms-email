@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => Yii::t('infoweb/email', 'Emails'),
+$this->title = Yii::t('app', 'View {modelClass}: ', [
+    'modelClass' => Yii::t('infoweb/email', 'Email'),
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('infoweb/email', 'Emails'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => "#{$model->id}", 'url' => ['update', 'id' => $model->id]];
