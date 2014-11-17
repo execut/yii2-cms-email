@@ -21,6 +21,7 @@ class EmailController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'read' => ['post'],
+                    'delete' => ['post'],
                 ],
             ],
         ];
@@ -68,6 +69,17 @@ class EmailController extends Controller
         $model = $this->findModel($id);
         
         return $model->message;
+    }
+
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+        $model->delete();     
+        
+        // Set flash message
+        Yii::$app->getSession()->setFlash('email', Yii::t('app', 'The item has been deleted'));
+
+        return $this->redirect(['index']);
     }
 
     protected function findModel($id)

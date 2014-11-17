@@ -42,8 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'kartik\grid\ActionColumn',
-                'template' => '{update}',
+                'template' => '{update} {delete}',
                 'updateOptions' => ['title' => Yii::t('app', 'View'), 'data-toggle' => 'tooltip'],
+                'deleteOptions'=>['title' => Yii::t('app', 'Delete'), 'data-toggle' => 'tooltip'],
                 'width' => '120px',
             ],
         ],

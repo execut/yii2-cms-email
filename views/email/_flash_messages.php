@@ -4,8 +4,8 @@
 </div>
 <?php endif; ?>
 
-<?php if (Yii::$app->getSession()->hasFlash('email')): ?>
+<?php if (Yii::$app->getSession()->hasFlash('email-error')): ?>
 <div class="alert alert-danger">
-    <?= Yii::$app->getSession()->getFlash('email') ?>
+    <?= Yii::$app->getSession()->getFlash('email-error') ?>
 </div>
 <?php endif; ?>
