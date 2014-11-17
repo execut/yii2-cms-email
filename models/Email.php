@@ -1,11 +1,12 @@
 <?php
 
-namespace infoweb\emails\models;
+namespace infoweb\email\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use infoweb\cms\behaviors\Base64EncodeBehavior;
 
 class Email extends \yii\db\ActiveRecord
 {   
@@ -28,6 +29,10 @@ class Email extends \yii\db\ActiveRecord
                 ],
                 'value' => function() { return time(); },
             ],
+            'base64encode'    => [
+                'class' => Base64EncodeBehavior::className(),
+                'attributes' => ['message']    
+            ]
         ]);
     }
 
@@ -60,7 +65,7 @@ class Email extends \yii\db\ActiveRecord
             'read' => Yii::t('infoweb/email', 'Read'),
             'created_at' => Yii::t('infoweb/email', 'Send at'),
             'updated_at' => Yii::t('app', 'Updated at'),
-            'read_at' => Yii::('infoweb/email', 'Read at')
+            'read_at' => Yii::t('infoweb/email', 'Read at')
         ];
     }
 }

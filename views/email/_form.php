@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
-use yii\bootstrap\Tabs;
 ?>
 <div class="email-form">
     

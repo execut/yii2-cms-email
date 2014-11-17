@@ -1,11 +1,11 @@
 <?php
 
-namespace infoweb\emails\models;
+namespace infoweb\email\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use infoweb\emails\models\Email;
+use infoweb\email\models\Email;
 
 class EmailSearch extends Email
 {

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'subject',
             'from',
             [
-                'attribute'=>'create_at',
+                'attribute'=>'created_at',
                 'value'=>function ($model, $index, $widget) {
                     return Yii::$app->formatter->asDate($model->created_at);
                 },
@@ -41,30 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'hAlign' => 'center',
             ],
             [
-                'class' => 'kartik\grid\BooleanColumn',
-                'attribute' => 'read',
-                'vAlign'=> 'middle'
-            ],
-            [
                 'class' => 'kartik\grid\ActionColumn',
-                'template' => '{update} {read}',
-                'buttons' => [
-                    'read' => function ($url, $model) {
-                        if ($model->read == true) {
-                            $icon = 'glyphicon-eye-open';
-                        } else {
-                            $icon = 'glyphicon-eye-close';
-                        }
-
-                        return Html::a('<span class="glyphicon ' . $icon . '"></span>', $url, [
-                            'title' => ($model->read == true) ? Yii::t('infoweb/email', 'Mark as not read') : Yii::t('infoweb/email', 'Mark as read'),
-                            'data-pjax' => '0',
-                            'data-toggleable' => 'true',
-                            'data-toggle-id' => $model->id,
-                            'data-toggle' => 'tooltip',
-                        ]);
-                    },
-                ],
+                'template' => '{update}',
                 'updateOptions' => ['title' => Yii::t('app', 'View'), 'data-toggle' => 'tooltip'],
                 'width' => '120px',
             ],

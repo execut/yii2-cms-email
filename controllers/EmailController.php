@@ -1,6 +1,6 @@
 <?php
 
-namespace infoweb\emails\controllers;
+namespace infoweb\email\controllers;
 
 use Yii;
 use yii\web\Controller;
@@ -9,8 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\base\Model;
-use infoweb\emails\models\Email;
-use infoweb\emails\models\EmailSearch;
+use infoweb\email\models\Email;
+use infoweb\email\models\EmailSearch;
 
 class EmailController extends Controller
 {
