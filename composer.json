@@ -1,0 +1,35 @@
+{
+    "name": "infoweb-internet-solutions/yii2-cms-email",
+    "description": "Yii2 email",
+    "keywords": ["yii2", "yii2-cms-email", "infoweb"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/infoweb-internet-solutions/yii2-cms-email/issues?state=open",
+        "source": "https://github.com/infoweb-internet-solutions/yii2-cms-email"
+    },
+    "authors": [
+        {
+            "name": "Fabio Maggio",
+            "email": "fabio@infoweb.be",
+            "homepage": "https://github.com/fabiomaggio"
+        },
+        {
+            "name": "Ruben Heymans",
+            "email": "ruben@infoweb.be",
+            "homepage": "http://www.infoweb.be/"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "*",
+        "infoweb-internet-solutions/yii2-cms": "*",
+        "kartik-v/yii2-widgets": "*",
+        "kartik-v/yii2-grid": "*",
+    },
+    "autoload": {
+        "psr-4": {
+            "infoweb\\email\\": ""
+        }
+    }
+}
