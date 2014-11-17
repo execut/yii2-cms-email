@@ -62,6 +62,13 @@ class EmailController extends Controller
 
         return $model->save();
     }
+    
+    public function actionMessage($id)
+    {
+        $model = $this->findModel($id);
+        
+        return $model->message;
+    }
 
     protected function findModel($id)
     {

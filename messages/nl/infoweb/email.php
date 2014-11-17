@@ -3,7 +3,7 @@
 return [
     'Email' => 'E-mailbericht',
     'Emails' => 'E-mailberichten',
-    'Form' => 'Van',
+    'Form' => 'Formulier',
     'From' => 'Van',
     'Message' => 'Bericht',
     'Read' => 'Gelezen',
