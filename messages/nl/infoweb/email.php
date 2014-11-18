@@ -5,6 +5,7 @@ return [
     'Emails' => 'E-mailberichten',
     'Form' => 'Formulier',
     'From' => 'Van',
+    'Mark as read' => 'Markeren als gelezen',
     'Message' => 'Bericht',
     'Read' => 'Gelezen',
     'Read at' => 'Gelezen op',

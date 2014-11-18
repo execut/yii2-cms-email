@@ -50,7 +50,14 @@ function doBatchRead(event) {
                 {
                     // Hide read button
                     $('#batch-read').hide();
+                        
+                    if (parseInt(response.unread) == 0) {
+                        $('.nav-item-unread-mails .unread-emails').addClass('hidden');    
+                    } else {
+                        $('.nav-item-unread-mails .unread-emails').removeClass('hidden').html(response.unread);
+                    }
 
+                    // Reload the grid
                     $.pjax.reload({container:'#grid-pjax'});
                 } else {
                     // @todo Do something

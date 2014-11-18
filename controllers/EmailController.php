@@ -89,7 +89,11 @@ class EmailController extends Controller
     
     public function actionBatchRead()
     {
-        $data['status'] = 0;
+        $data = [
+            'status'    => 0,
+            'message'   => '',
+            'unread'    => Yii::$app->getModule('email')->getUnreadEmails()
+        ];
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (Yii::$app->request->isAjax) {
@@ -99,8 +103,11 @@ class EmailController extends Controller
             Email::updateAll(['read' => 1, 'read_at' => time()], ['id' => $ids]);
 
             // Set flash message
-            $data['message'] = '';
-            $data['status'] = 1;
+            $data = [
+                'status'    => 1,
+                'message'   => '',
+                'unread'    => Yii::$app->getModule('email')->getUnreadEmails(true)
+            ];
         }
 
         return $data;
