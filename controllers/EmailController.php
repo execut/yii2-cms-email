@@ -43,6 +43,11 @@ class EmailController extends Controller
         $languages = Yii::$app->params['languages'];
         $model = $this->findModel($id);
         
+        // If the message is not read yet, mark it as read
+        if (!$model->read) {
+            $model->markAsRead();
+        }
+        
         if (Yii::$app->request->getIsPost()) {           
             $post = Yii::$app->request->post();
               
@@ -80,6 +85,25 @@ class EmailController extends Controller
         Yii::$app->getSession()->setFlash('email', Yii::t('app', 'The item has been deleted'));
 
         return $this->redirect(['index']);
+    }
+    
+    public function actionBatchRead()
+    {
+        $data['status'] = 0;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (Yii::$app->request->isAjax) {
+
+            $ids = Yii::$app->request->post('ids');
+
+            Email::updateAll(['read' => 1, 'read_at' => time()], ['id' => $ids]);
+
+            // Set flash message
+            $data['message'] = '';
+            $data['status'] = 1;
+        }
+
+        return $data;
     }
 
     protected function findModel($id)

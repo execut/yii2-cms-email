@@ -68,4 +68,12 @@ class Email extends \yii\db\ActiveRecord
             'read_at' => Yii::t('infoweb/email', 'Read at')
         ];
     }
+    
+    public function markAsRead()
+    {
+        $this->read = 1;
+        $this->read_at = time();
+        
+        return $this->save();
+    }
 }
