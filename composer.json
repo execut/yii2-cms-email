@@ -20,12 +20,11 @@
             "homepage": "http://www.infoweb.be/"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-        "yiisoft/yii2": "*",
-        "infoweb-internet-solutions/yii2-cms": "*",
-        "kartik-v/yii2-widgets": "*",
-        "kartik-v/yii2-grid": "*"
+        "yiisoft/yii2": "@stable",
+        "infoweb-internet-solutions/yii2-cms": "@stable",
+        "kartik-v/yii2-widgets": "@stable",
+        "kartik-v/yii2-grid": "@stable"
     },
     "autoload": {
         "psr-4": {
