@@ -44,8 +44,9 @@ class Email extends \yii\db\ActiveRecord
         return [
             [['language', 'from', 'to', 'subject', 'message'], 'required'],
             [['read', 'created_at', 'updated_at', 'read_at'], 'integer'],
-            [['from', 'to'], 'email'],
-            ['read', 'default', 'value' => 0]
+            [['from'], 'email'],
+            ['read', 'default', 'value' => 0],
+            [['to'], 'string'],
         ];
     }
 
