@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 
-$this->title = Yii::t('app', 'View {modelClass}: ', [
+$this->title = Yii::t('app', 'View {modelClass}', [
     'modelClass' => Yii::t('infoweb/email', 'Email'),
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('infoweb/email', 'Emails'), 'url' => ['index']];
