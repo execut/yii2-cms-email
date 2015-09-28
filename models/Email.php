@@ -66,7 +66,7 @@ class Email extends \yii\db\ActiveRecord
             'read' => Yii::t('infoweb/email', 'Read'),
             'created_at' => Yii::t('infoweb/email', 'Send at'),
             'updated_at' => Yii::t('app', 'Updated at'),
-            'read_at' => Yii::t('infoweb/email', 'Read at')
+            'read_at' => Yii::t('infoweb/email', 'Read at'),
         ];
     }
     

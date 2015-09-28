@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'subject',
             'from',
+            'form',
             [
                 'attribute'=>'created_at',
                 'value'=>function ($model, $index, $widget) {
