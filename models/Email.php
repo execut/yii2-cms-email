@@ -75,6 +75,19 @@ class Email extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Returns the actionTypes
+     *
+     * @return array
+     */
+    public function actionTypes()
+    {
+        return [
+            self::ACTION_RECEIVED => Yii::t('infoweb/email', 'Received'),
+            self::ACTION_SENT     => Yii::t('infoweb/email', 'Sent')
+        ];
+    }
+
     public function markAsRead()
     {
         $this->read = 1;

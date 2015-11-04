@@ -29,6 +29,16 @@ class EmailController extends Controller
 
     public function actionIndex()
     {
+        // Store the action type if it is provided through the url
+        if (Yii::$app->request->get('actionType', null) !== null) {
+            Yii::$app->session->set('emails.actionType', Yii::$app->request->get('actionType'));;
+        }
+
+        // Fall back to the default action if no action type is set
+        if (Yii::$app->session->get('emails.actionType', null) === null) {
+            Yii::$app->session->set('emails.actionType', Email::ACTION_RECEIVED);
+        }
+
         $searchModel = new EmailSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -42,17 +52,17 @@ class EmailController extends Controller
     {
         $languages = Yii::$app->params['languages'];
         $model = $this->findModel($id);
-        
+
         // If the message is not read yet, mark it as read
         if (!$model->read) {
             $model->markAsRead();
         }
-        
-        if (Yii::$app->request->getIsPost()) {           
+
+        if (Yii::$app->request->getIsPost()) {
             $post = Yii::$app->request->post();
-              
+
             if (isset($post['close']))
-                return $this->redirect(['index']);   
+                return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -68,25 +78,25 @@ class EmailController extends Controller
 
         return $model->save();
     }
-    
+
     public function actionMessage($id)
     {
         $model = $this->findModel($id);
-        
+
         return $model->message;
     }
 
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $model->delete();     
-        
+        $model->delete();
+
         // Set flash message
         Yii::$app->getSession()->setFlash('email', Yii::t('app', 'The item has been deleted'));
 
         return $this->redirect(['index']);
     }
-    
+
     public function actionBatchRead()
     {
         $data = [

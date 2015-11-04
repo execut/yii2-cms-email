@@ -1,20 +1,26 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\Pjax;
 use kartik\grid\GridView;
+use kartik\helpers\Html;
+use infoweb\email\models\Email;
 use infoweb\email\assets\EmailAsset;
 
 EmailAsset::register($this);
 
 $this->title = Yii::t('infoweb/email', 'Emails');
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title . ': ' . strtolower(Email::actionTypes()[Yii::$app->session->get('emails.actionType')]);
 ?>
 <div class="email-index">
 
     <?php // Title ?>
     <h1>
         <?= Html::encode($this->title) ?>
+        : <?php echo Html::radioButtonGroup(
+            'actionType',
+            Yii::$app->session->get('emails.actionType'),
+            Email::actionTypes()
+        ); ?>
         <?php // Buttons ?>
         <div class="pull-right">
             <?= Html::button(Yii::t('infoweb/email', 'Mark as read'), [
@@ -22,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id' => 'batch-read',
                 'data-pjax' => 0,
                 'style' => 'display: none;'
-            ]) ?>   
+            ]) ?>
         </div>
     </h1>
-    
+
     <?php // Flash messages ?>
     <?php echo $this->render('_flash_messages'); ?>
 
@@ -38,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'class' => '\kartik\grid\CheckboxColumn',
+                'visible' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? true : false,
                 'checkboxOptions' => function($model) {
                     return [
                         'disabled' => (!$model->read) ? false : true
@@ -49,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'form',
             [
                 'attribute'=>'created_at',
+                'label' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? Yii::t('infoweb/email', 'Received at') : Yii::t('infoweb/email', 'Send at'),
                 'value'=>function ($model, $index, $widget) {
                     return Yii::$app->formatter->asDate($model->created_at);
                 },
@@ -79,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'rowOptions' => function($model, $key, $index, $row) {
             return [
                 'class' => (!$model->read) ? 'unread' : 'read'
-            ];       
+            ];
         }
     ]);
     ?>

@@ -37,11 +37,14 @@ class EmailSearch extends Email
         // Transform the date to a unix timestamp for usage in the search query
         if (isset($params['EmailSearch']['created_at'])) {
             $origDate = $params['EmailSearch']['created_at'];
-            $params['EmailSearch']['create_at'] = strtotime($params['EmailSearch']['created_at']);
+            $params['EmailSearch']['created_at'] = strtotime($params['EmailSearch']['created_at']);
         }
-        
+
         $query = Email::find();
-        
+
+        // Add action filter
+        $query->andFilterWhere(['action' => Yii::$app->session->get('emails.actionType')]);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
@@ -58,7 +61,7 @@ class EmailSearch extends Email
         $query->andFilterWhere(['like', 'subject', $this->subject]);
         $query->andFilterWhere(['like', 'from', $this->from]);
         $query->andFilterWhere(['like', 'form', $this->form]);
-        
+
         // Format the date for display
         $this->created_at = $origDate;
 
