@@ -9,7 +9,11 @@ use yii\helpers\ArrayHelper;
 use infoweb\cms\behaviors\Base64EncodeBehavior;
 
 class Email extends \yii\db\ActiveRecord
-{   
+{
+    // Action types
+    const ACTION_SENT     = 'sent';
+    const ACTION_RECEIVED = 'received';
+
     /**
      * @inheritdoc
      */
@@ -31,7 +35,7 @@ class Email extends \yii\db\ActiveRecord
             ],
             'base64encode'    => [
                 'class' => Base64EncodeBehavior::className(),
-                'attributes' => ['message']    
+                'attributes' => ['message']
             ]
         ]);
     }
@@ -47,6 +51,7 @@ class Email extends \yii\db\ActiveRecord
             [['from'], 'email'],
             ['read', 'default', 'value' => 0],
             [['to'], 'string'],
+            ['action', 'default', 'value' => self::ACTION_RECEIVED]
         ];
     }
 
@@ -69,12 +74,12 @@ class Email extends \yii\db\ActiveRecord
             'read_at' => Yii::t('infoweb/email', 'Read at'),
         ];
     }
-    
+
     public function markAsRead()
     {
         $this->read = 1;
         $this->read_at = time();
-        
+
         return $this->save();
     }
 }
