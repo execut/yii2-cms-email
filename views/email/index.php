@@ -52,7 +52,10 @@ $this->params['breadcrumbs'][] = $this->title . ': ' . strtolower(Email::actionT
                 }
             ],
             'subject',
-            'from',
+            [
+                'attribute' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? 'from' : 'to',
+                'label' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? Yii::t('infoweb/email', 'From') : Yii::t('infoweb/email', 'To'),
+            ],
             'form',
             [
                 'attribute'=>'created_at',
