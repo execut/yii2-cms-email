@@ -80,7 +80,7 @@ class Email extends \yii\db\ActiveRecord
      *
      * @return array
      */
-    public function actionTypes()
+    public static function actionTypes()
     {
         return [
             self::ACTION_RECEIVED => Yii::t('infoweb/email', 'Received'),
