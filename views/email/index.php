@@ -9,7 +9,7 @@ use infoweb\email\assets\EmailAsset;
 EmailAsset::register($this);
 
 $this->title = Yii::t('infoweb/email', 'Emails');
-$this->params['breadcrumbs'][] = $this->title . ': ' . strtolower(Email::actionTypes()[Yii::$app->session->get('emails.actionType')]);
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="email-index">
 
