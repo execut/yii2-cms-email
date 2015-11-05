@@ -8,20 +8,20 @@ use infoweb\email\models\Email;
 class Module extends \yii\base\Module
 {
     private $_unreadEmails = null;
-    
+
     public function init()
     {
         parent::init();
 
         Yii::configure($this, require(__DIR__ . '/config.php'));
     }
-    
+
     public function getUnreadEmails($reload = false)
     {
         if ($this->_unreadEmails === null || $reload) {
-            $this->_unreadEmails = Email::find()->where(['read' => 0])->count();    
+            $this->_unreadEmails = Email::find()->where(['read' => 0, 'action' => Email::ACTION_RECEIVED])->count();
         }
-        
-        return $this->_unreadEmails;        
+
+        return $this->_unreadEmails;
     }
 }
