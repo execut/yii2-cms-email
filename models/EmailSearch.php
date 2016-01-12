@@ -57,7 +57,10 @@ class EmailSearch extends Email
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['created_at' => $this->created_at]);
+        if ($this->created_at) {
+            $query->andFilterWhere(['created_at' => $this->created_at]);
+        }
+
         $query->andFilterWhere(['like', 'subject', $this->subject]);
         $query->andFilterWhere(['like', 'from', $this->from]);
         $query->andFilterWhere(['like', 'to', $this->to]);
