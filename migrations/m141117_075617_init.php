@@ -16,7 +16,7 @@ class m141117_075617_init extends Migration
         // Create 'emails' table
         $this->createTable('{{%emails}}', [
             'id'            => Schema::TYPE_PK,
-            'language'      => Schema::TYPE_STRING . '(2) NOT NULL',
+            'language'      => Schema::TYPE_STRING . '(10) NOT NULL',
             'form'          => Schema::TYPE_STRING . '(255) NOT NULL',
             'from'          => Schema::TYPE_STRING . '(255) NOT NULL',
             'to'            => Schema::TYPE_STRING . '(255) NOT NULL',
