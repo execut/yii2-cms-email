@@ -25,7 +25,10 @@
         "infoweb-internet-solutions/yii2-cms": "@stable",
         "kartik-v/yii2-widgets": "@stable",
         "kartik-v/yii2-grid": "@stable",
-        "kartik-v/yii2-helpers": "@stable"
+        "kartik-v/yii2-helpers": "@stable",
+        "kartik-v/yii2-export": "@stable",
+        "kartik-v/yii2-mpdf": "*",
+        "phpoffice/phpexcel": "@stable"
     },
     "autoload": {
         "psr-4": {

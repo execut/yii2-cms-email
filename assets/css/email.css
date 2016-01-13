@@ -1,3 +1,7 @@
 .grid-view .unread td {
     font-weight: bold;
 }
+
+.export-menu-container {
+    /*display: inline;*/
+}
