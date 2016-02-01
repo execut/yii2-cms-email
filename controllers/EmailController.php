@@ -97,12 +97,35 @@ class EmailController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionBatchDelete()
+    {
+        $data = [
+            'status'    => 0,
+            'message'   => '',
+        ];
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (Yii::$app->request->isAjax) {
+
+            $ids = Yii::$app->request->post('ids');
+
+            Email::deleteAll(['in', 'id', $ids]);
+
+            // Set flash message
+            $data = [
+                'status'    => 1,
+                'message'   => '',
+            ];
+        }
+
+        return $data;
+    }
+
     public function actionBatchRead()
     {
         $data = [
             'status'    => 0,
             'message'   => '',
-            'unread'    => Yii::$app->getModule('email')->getUnreadEmails()
         ];
         Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -116,7 +139,6 @@ class EmailController extends Controller
             $data = [
                 'status'    => 1,
                 'message'   => '',
-                'unread'    => Yii::$app->getModule('email')->getUnreadEmails(true)
             ];
         }
 

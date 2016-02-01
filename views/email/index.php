@@ -17,11 +17,6 @@ $gridColumns = [
     [
         'class' => '\kartik\grid\CheckboxColumn',
         'visible' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? true : false,
-        'checkboxOptions' => function($model) {
-            return [
-                'disabled' => (!$model->read) ? false : true
-            ];
-        }
     ],
     'subject',
     [
@@ -95,8 +90,15 @@ $gridColumns = [
             ]); ?>
 
             <?= Html::button(Yii::t('infoweb/email', 'Mark as read'), [
-                'class' => 'btn btn-danger',
+                'class' => 'btn btn-info',
                 'id' => 'batch-read',
+                'data-pjax' => 0,
+                'style' => 'display: none;'
+            ]) ?>
+
+            <?= Html::button(Yii::t('app', 'Delete'), [
+                'class' => 'btn btn-danger',
+                'id' => 'batch-delete',
                 'data-pjax' => 0,
                 'style' => 'display: none;'
             ]) ?>
@@ -124,3 +126,4 @@ $gridColumns = [
 
 </div>
 <span class="hidden" id="bootbox-batch-read-msg"><?php echo Yii::t('infoweb/email', 'Mark as read'); ?>?</span>
+<span class="hidden" id="bootbox-batch-delete-msg"><?php echo Yii::t('app', 'Are you sure you want to delete this item(s)'); ?>?</span>
