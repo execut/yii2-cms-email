@@ -38,7 +38,7 @@ $gridColumns = [
                 'todayHighlight' => true,
             ]
         ],
-        'width' => '160px',
+        'width' => '220px',
         'hAlign' => 'center'
     ],
     [
