@@ -51,7 +51,8 @@ class Email extends \yii\db\ActiveRecord
             [['from'], 'email'],
             ['read', 'default', 'value' => 0],
             [['to'], 'string'],
-            ['action', 'default', 'value' => self::ACTION_RECEIVED]
+            ['action', 'default', 'value' => self::ACTION_RECEIVED],
+            [['rep', 'profession'], 'default', 'value' => '']
         ];
     }
 
