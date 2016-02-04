@@ -28,6 +28,14 @@ use infoweb\email\models\Email;
         'readonly' => true
     ]); ?>
 
+    <?= $form->field($model, 'rep')->textInput([
+        'readonly' => true
+    ]); ?>
+
+    <?= $form->field($model, 'profession')->textInput([
+        'readonly' => true
+    ]); ?>
+
     <?= $form->field($model, 'created_at')->textInput([
         'readonly' => true,
         'value' => Yii::$app->formatter->asDate($model->created_at, 'php:d-m-Y H:i')

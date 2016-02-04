@@ -15,7 +15,7 @@ class EmailSearch extends Email
     public function rules()
     {
         return [
-            [['subject', 'from', 'to', 'read', 'created_at', 'form'], 'safe'],
+            [['subject', 'from', 'to', 'read', 'created_at', 'form', 'rep', 'profession'], 'safe'],
         ];
     }
 
@@ -65,6 +65,8 @@ class EmailSearch extends Email
         $query->andFilterWhere(['like', 'from', $this->from]);
         $query->andFilterWhere(['like', 'to', $this->to]);
         $query->andFilterWhere(['like', 'form', $this->form]);
+        $query->andFilterWhere(['like', 'rep', $this->rep]);
+        $query->andFilterWhere(['like', 'profession', $this->profession]);
 
         // Format the date for display
         $this->created_at = $origDate;

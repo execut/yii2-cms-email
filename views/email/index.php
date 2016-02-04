@@ -46,6 +46,8 @@ $gridColumns = [
         'width' => '160px',
         'hAlign' => 'center'
     ],
+    'rep',
+    'profession',
     [
         'class' => 'kartik\grid\ActionColumn',
         'template' => '{update} {delete}',
