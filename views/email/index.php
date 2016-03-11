@@ -116,7 +116,7 @@ $gridColumns = [
         'filterModel' => $searchModel,
         'columns' => $gridColumns,
         'rowOptions' => function($model, $key, $index, $row) {
-            $class = (!$model->read) ? 'unread' : 'read';
+            $class = (!$model->read && Yii::$app->session->get('emails.actionType') == Email::ACTION_RECEIVED) ? 'unread' : 'read';
             $class .= ($model->isProcessedByTheRecipient()) ? ' processed' : ' not-processed';
             return [
                 'class' => $class
