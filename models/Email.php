@@ -121,4 +121,23 @@ class Email extends \yii\db\ActiveRecord
 
         return ($user) ? true : false;
     }
+
+    /**
+     * Parses the registration url from the message of the mail and returns it
+     * This is only used by for the cronjob that will check if a user has reacted
+     * to the signup mail.
+     *
+     * @return string
+     */
+    public function extractRegistrationUrl()
+    {
+        if ($this->form != 'Sanmax app') {
+            return '';
+        }
+
+        $content = $this->message;
+        preg_match_all('/href="([^\"]+site\/signup[^\"]+)"/i', $content, $matches);
+
+        return (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '';
+    }
 }
