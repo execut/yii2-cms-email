@@ -7,6 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use infoweb\cms\behaviors\Base64EncodeBehavior;
+use infoweb\user\models\User;
 
 class Email extends \yii\db\ActiveRecord
 {
@@ -97,5 +98,27 @@ class Email extends \yii\db\ActiveRecord
         $this->read_at = time();
 
         return $this->save();
+    }
+
+    /**
+     * Checks if the mail is processed by the user
+     * In case it was a mail concerning the registration via the Sanmax app
+     * a check is performed to ensure that a user with the emailadres of the
+     * recipient exists.
+     *
+     * @return boolean
+     */
+    public function isProcessedByTheRecipient()
+    {
+        if ($this->form != 'Sanmax app') {
+            return true;
+        }
+
+        $user = User::findOne([
+            'email' => $this->to,
+            'scope' => User::SCOPE_FRONTEND
+        ]);
+
+        return ($user) ? true : false;
     }
 }

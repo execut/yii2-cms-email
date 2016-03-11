@@ -116,8 +116,10 @@ $gridColumns = [
         'filterModel' => $searchModel,
         'columns' => $gridColumns,
         'rowOptions' => function($model, $key, $index, $row) {
+            $class = (!$model->read) ? 'unread' : 'read';
+            $class .= ($model->isProcessedByTheRecipient()) ? ' processed' : ' not-processed';
             return [
-                'class' => (!$model->read) ? 'unread' : 'read'
+                'class' => $class
             ];
         }
     ]);

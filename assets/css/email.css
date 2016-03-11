@@ -2,6 +2,10 @@
     font-weight: bold;
 }
 
+.grid-view .not-processed td {
+    background-color: #F5CACD;
+}
+
 .export-menu-container {
     /*display: inline;*/
 }
