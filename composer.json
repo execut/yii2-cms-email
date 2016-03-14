@@ -28,7 +28,8 @@
         "kartik-v/yii2-helpers": "@stable",
         "kartik-v/yii2-export": "@stable",
         "kartik-v/yii2-mpdf": "*",
-        "phpoffice/phpexcel": "@stable"
+        "phpoffice/phpexcel": "@stable",
+        "dompdf/dompdf": "*"
     },
     "autoload": {
         "psr-4": {
