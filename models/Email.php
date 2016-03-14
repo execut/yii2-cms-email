@@ -97,7 +97,7 @@ class Email extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['to' => 'email'])->andWhere(['scope' => User::SCOPE_FRONTEND]);
+        return $this->hasOne(User::className(), ['email' => 'to'])->andWhere(['scope' => User::SCOPE_FRONTEND]);
     }
 
     public function markAsRead()
@@ -122,12 +122,7 @@ class Email extends \yii\db\ActiveRecord
             return true;
         }
 
-        $user = User::findOne([
-            'email' => $this->to,
-            'scope' => User::SCOPE_FRONTEND
-        ]);
-
-        return ($user) ? true : false;
+        return ($this->user) ? true : false;
     }
 
     /**

@@ -84,7 +84,7 @@ $gridColumns = [
                     ExportMenu::FORMAT_HTML => false,
                     ExportMenu::FORMAT_CSV => [],
                     ExportMenu::FORMAT_TEXT => false,
-                    ExportMenu::FORMAT_PDF => [],
+                    ExportMenu::FORMAT_PDF => false,
                     ExportMenu::FORMAT_EXCEL => false,
                     ExportMenu::FORMAT_EXCEL_X => []
                 ],
@@ -94,6 +94,16 @@ $gridColumns = [
                     'basePath' => '@vendor/infoweb-internet-solutions/yii2-cms-email/messages',
                     'forceTranslation' => true,
                 ],
+                'onRenderDataCell' => function($cell, $content, $model, $key, $index, $grid) {
+                    if (!$model->isProcessedByTheRecipient()) {
+                        $cell->getStyle()->applyFromArray([
+                            'fill' => [
+                                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                'color' => ['rgb' => 'F5CACD']
+                            ]
+                        ]);
+                    }
+                }
             ]); ?>
 
             <?= Html::button(Yii::t('infoweb/email', 'Mark as read'), [
