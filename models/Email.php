@@ -92,6 +92,14 @@ class Email extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['to' => 'email'])->andWhere(['scope' => User::SCOPE_FRONTEND]);
+    }
+
     public function markAsRead()
     {
         $this->read = 1;
