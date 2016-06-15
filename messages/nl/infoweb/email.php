@@ -1,9 +1,11 @@
 <?php
 
 return [
+    'Beroep' => '',
     'Beste' => 'Beste',
     'Email' => 'E-mailbericht',
     'Emails' => 'E-mailberichten',
+    'Export data in selected format' => '',
     'Form' => 'Formulier',
     'From' => 'Van',
     'History' => 'Geschiedenis',
@@ -13,8 +15,10 @@ return [
     'Read at' => 'Gelezen op',
     'Received' => 'Ontvangen',
     'Received at' => 'Ontvangen op',
+    'Rep' => '',
     'Resend' => 'Opnieuw verzenden',
     'Resent at {date}' => 'Opnieuw verzonden op {date}',
+    'Select columns for export' => '',
     'Send at' => 'Verzonden op',
     'Sent' => 'Verzonden',
     'Subject' => 'Onderwerp',
