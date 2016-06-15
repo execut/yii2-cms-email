@@ -21,7 +21,7 @@ class EmailController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'read' => ['post'],
-                    'delete' => ['post'],
+                    'delete' => ['post']
                 ],
             ],
         ];
@@ -61,8 +61,15 @@ class EmailController extends Controller
         if (Yii::$app->request->getIsPost()) {
             $post = Yii::$app->request->post();
 
-            if (isset($post['close']))
+            if (isset($post['close'])) {
                 return $this->redirect(['index']);
+            } elseif (isset($post['resend'])) {
+                if (!$model->resend()) {
+                    Yii::$app->getSession()->setFlash('email', Yii::t('infoweb/email', 'Error while resending the email message'));
+                }
+
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [

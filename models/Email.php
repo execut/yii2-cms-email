@@ -100,6 +100,11 @@ class Email extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['email' => 'to'])->andWhere(['scope' => User::SCOPE_FRONTEND]);
     }
 
+    public function getHistory()
+    {
+        return $this->hasMany(EmailHistory::className(), ['email_id' => 'id']);
+    }
+
     public function markAsRead()
     {
         $this->read = 1;
@@ -142,5 +147,26 @@ class Email extends \yii\db\ActiveRecord
         preg_match_all('/href="([^\"]+site\/signup[^\"]+)"/i', $content, $matches);
 
         return (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '';
+    }
+
+    public function reSend()
+    {
+        $reSend = Yii::$app->mailer->compose()
+            ->setTo($this->to)
+            ->setFrom($this->from)
+            ->setSubject($this->subject)
+            ->setHtmlBody($this->message)
+            ->send();
+
+        if ($reSend) {
+            $history = new EmailHistory([
+                'email_id' => $this->id,
+                'action' => EmailHistory::ACTION_RESENT
+            ]);
+
+            return $history->save();
+        }
+
+        return false;
     }
 }

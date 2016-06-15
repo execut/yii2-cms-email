@@ -1,6 +1,7 @@
 <?php
 
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
 use kartik\export\ExportMenu;
@@ -11,6 +12,8 @@ EmailAsset::register($this);
 
 $this->title = Yii::t('infoweb/email', 'Emails');
 $this->params['breadcrumbs'][] = $this->title;
+
+$buttonsTemplate = (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? '{update} {delete}' : '{update} {delete} {resend}';
 
 // Set the gridColumns
 $gridColumns = [
@@ -45,7 +48,25 @@ $gridColumns = [
     'profession',
     [
         'class' => 'kartik\grid\ActionColumn',
-        'template' => '{update} {delete}',
+        'template' => $buttonsTemplate,
+        'buttons' => [
+            'resend' => function ($url, $model) {
+                if (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) {
+                    return false;
+                }
+                $resent = $model->getHistory()->resent()->count();
+                $resentLabel = '';
+                if ($resent) {
+                    $resentLabel = "&nbsp;<span class=\"label label-danger\">{$resent}</span>";
+                }
+                return Html::a("<span class=\"glyphicon glyphicon-send\"></span>{$resentLabel}", Url::toRoute(['email/update', 'id' => $model->id]), [
+                    'title' => Yii::t('infoweb/email', 'Resend'),
+                    'data-pjax' => '0',
+                    'data-toggle' => 'tooltip',
+                    'class' => 'resend-btn'
+                ]);
+            },
+        ],
         'updateOptions' => ['title' => Yii::t('app', 'View'), 'data-toggle' => 'tooltip'],
         'deleteOptions'=>['title' => Yii::t('app', 'Delete'), 'data-toggle' => 'tooltip'],
         'width' => '120px',
