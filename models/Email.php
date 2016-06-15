@@ -150,4 +150,25 @@ class Email extends \yii\db\ActiveRecord
 
         return false;
     }
+
+    public function reSend()
+    {
+        $reSend = Yii::$app->mailer->compose()
+            ->setTo($this->to)
+            ->setFrom($this->from)
+            ->setSubject($this->subject)
+            ->setHtmlBody($this->message)
+            ->send();
+
+        if ($reSend) {
+            $history = new EmailHistory([
+                'email_id' => $this->id,
+                'action' => EmailHistory::ACTION_RESENT
+            ]);
+
+            return $history->save();
+        }
+
+        return false;
+    }
 }
