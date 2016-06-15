@@ -5,3 +5,14 @@
 .export-menu-container {
     /*display: inline;*/
 }
+
+.grid-view .resend-btn {
+    position: relative;
+}
+
+.grid-view .label-danger {
+    padding: .1em .4em .2em;
+    position: absolute;
+    top: -5px;
+    left: 25px;
+}

@@ -88,11 +88,45 @@ class Email extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['email' => 'to'])->andWhere(['scope' => User::SCOPE_FRONTEND]);
+    }
+
+    public function getHistory()
+    {
+        return $this->hasMany(EmailHistory::className(), ['email_id' => 'id']);
+    }
+
     public function markAsRead()
     {
         $this->read = 1;
         $this->read_at = time();
 
         return $this->save();
+    }
+
+    public function reSend()
+    {
+        $reSend = Yii::$app->mailer->compose()
+            ->setTo($this->to)
+            ->setFrom($this->from)
+            ->setSubject($this->subject)
+            ->setHtmlBody($this->message)
+            ->send();
+
+        if ($reSend) {
+            $history = new EmailHistory([
+                'email_id' => $this->id,
+                'action' => EmailHistory::ACTION_RESENT
+            ]);
+
+            return $history->save();
+        }
+
+        return false;
     }
 }
