@@ -15,6 +15,8 @@ class Email extends \yii\db\ActiveRecord
     const ACTION_SENT     = 'sent';
     const ACTION_RECEIVED = 'received';
 
+    public $registrated;
+
     /**
      * @inheritdoc
      */
@@ -125,6 +127,13 @@ class Email extends \yii\db\ActiveRecord
     {
         if ($this->form != 'Sanmax app') {
             return true;
+        }
+
+        if($this->id == 2234) {
+            //var_dump( $this->user );
+            
+            //var_dump(($this->user) ? true : false);
+            //exit;
         }
 
         return ($this->user) ? true : false;

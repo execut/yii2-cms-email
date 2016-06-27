@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use infoweb\email\models\Email;
+use yii\db\Expression;
 
 class EmailSearch extends Email
 {
@@ -15,7 +16,8 @@ class EmailSearch extends Email
     public function rules()
     {
         return [
-            [['subject', 'from', 'to', 'read', 'created_at', 'form', 'rep', 'profession'], 'safe'],
+            [['subject', 'from', 'to', 'read', 'created_at', 'form', 'rep', 'profession', 'registrated'], 'safe'],
+            ['registrated', 'string']
         ];
     }
 
@@ -47,7 +49,10 @@ class EmailSearch extends Email
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
+            'sort' => [
+                'defaultOrder' => ['created_at' => SORT_DESC],
+                //['registrated']
+            ],
             'pagination' => [
                 'pageSize' => 50,
             ],
@@ -67,6 +72,19 @@ class EmailSearch extends Email
         $query->andFilterWhere(['like', 'form', $this->form]);
         $query->andFilterWhere(['like', 'rep', $this->rep]);
         $query->andFilterWhere(['like', 'profession', $this->profession]);
+
+        if($this->registrated) {
+            if(strtolower($this->registrated) == strtolower(Yii::t('infoweb/email', 'Yes'))) {
+                $query->innerJoin('user', new Expression('emails.to = user.email COLLATE utf8_unicode_ci'));
+                $query->andFilterWhere(['=', 'form', 'Sanmax app']);
+                $query->andWhere(new Expression('NOT ISNULL (`user`.`id`)'));
+            }
+            elseif(strtolower($this->registrated) == strtolower(Yii::t('infoweb/email', 'No'))) {
+                $query->leftJoin('user', new Expression('emails.to = user.email COLLATE utf8_unicode_ci'));
+                $query->andFilterWhere(['=', 'form', 'Sanmax app']);
+                $query->andWhere(new Expression('ISNULL (`user`.`id`)'));
+            }
+        }
 
         // Format the date for display
         $this->created_at = $origDate;

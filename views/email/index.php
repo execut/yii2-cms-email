@@ -30,7 +30,7 @@ $gridColumns = [
     [
         'attribute'=>'created_at',
         'label' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? Yii::t('infoweb/email', 'Received at') : Yii::t('infoweb/email', 'Send at'),
-        'value'=>function ($model, $index, $widget) {
+        'value' => function ($model, $index, $widget) {
             return Yii::$app->formatter->asDate($model->created_at);
         },
         'filterType' => GridView::FILTER_DATE,
@@ -46,6 +46,22 @@ $gridColumns = [
     ],
     'rep',
     'profession',
+    [
+        'attribute' => 'registrated',
+        'label' => Yii::t('infoweb/email', 'Registrated'),
+        'value' => function ($model, $index, $widget) {
+            if ($model->form != 'Sanmax app') {
+                return '';
+            }
+
+            return $model->isProcessedByTheRecipient() ? Yii::t('infoweb/email', 'Yes') : Yii::t('infoweb/email', 'No');
+        },
+        'filter' => [
+            Yii::t('infoweb/email', 'Yes') => Yii::t('infoweb/email', 'Yes'),
+            Yii::t('infoweb/email', 'No') => Yii::t('infoweb/email', 'No')
+        ],
+        'visible' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_RECEIVED) ? true : false
+    ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'template' => $buttonsTemplate,
@@ -91,7 +107,7 @@ $gridColumns = [
                 'columns' => $gridColumns,
                 'target' => ExportMenu::TARGET_SELF,
                 'showConfirmAlert' => false,
-                'noExportColumns' => [0,7],
+                'noExportColumns' => [0,8],
                 'fontAwesome' => true,
                 'columnBatchToggleSettings' => [
                     'show' => false
