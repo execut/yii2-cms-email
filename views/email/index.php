@@ -19,7 +19,6 @@ $buttonsTemplate = (Yii::$app->session->get('emails.actionType') != Email::ACTIO
 $gridColumns = [
     [
         'class' => '\kartik\grid\CheckboxColumn',
-        'visible' => (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? true : false,
     ],
     'subject',
     [
