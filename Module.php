@@ -8,6 +8,20 @@ use infoweb\email\models\Email;
 class Module extends \yii\base\Module
 {
     private $_unreadEmails = null;
+    
+    /**
+     * Module specific configuration of the ckEditor
+     * @var array
+     */
+    public $ckEditorOptions = [
+        'height' => 500
+    ];
+
+    /**
+     * Allow content duplication with the "duplicateable" plugin
+     * @var boolean
+     */
+    public $allowContentDuplication = true;
 
     public function init()
     {
