@@ -89,7 +89,6 @@ $gridColumns = [
 ];
 ?>
 <div class="email-index">
-
     <?php // Title ?>
     <h1>
         <?= Html::encode($this->title) ?>
@@ -101,6 +100,11 @@ $gridColumns = [
 
         <?php // Buttons ?>
         <div class="navbar-right">
+            <?= Html::a('<i class="fa fa-file-text-o" aria-hidden="true"></i>', Url::toRoute(['/email/template']), [
+                'class' => 'btn btn-default',
+                'data-pjax' => 0
+            ]) ?>
+
             <?= ExportMenu::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => $gridColumns,
