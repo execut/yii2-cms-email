@@ -128,7 +128,7 @@ class Template extends \yii\db\ActiveRecord
     {
         $mail = Yii::$app->mailer->compose()
             ->setTo(explode(',', str_replace(' ', '', $this->to)))
-            ->setFrom($this->from))
+            ->setFrom($this->from)
             ->setSubject($this->subject);
 
         if(trim($this->bcc) != '') {
