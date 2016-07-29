@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'allowContentDuplication' => $allowContentDuplication
     ]) ?>
 
 </div>

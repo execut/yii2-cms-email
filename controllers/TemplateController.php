@@ -148,7 +148,8 @@ class TemplateController extends Controller {
      */
     protected function getDefaultViewParams($model = null) {
         return [
-            'model' => $model
+            'model' => $model,
+            'allowContentDuplication' => $this->module->allowContentDuplication
         ];
     }
 

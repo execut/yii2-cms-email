@@ -40,7 +40,8 @@ TemplateAsset::register($this);
             'label' => Yii::t('app', 'Email'),
             'content' => $this->render('_default_tab', [
                 'model' => $model,
-                'form' => $form
+                'form' => $form,
+                'allowContentDuplication' => $allowContentDuplication
             ]),
         ]
     ];
