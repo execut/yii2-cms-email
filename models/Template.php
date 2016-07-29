@@ -29,6 +29,10 @@ class Template extends \yii\db\ActiveRecord
     const TYPE_SYSTEM = 'system';
     const TYPE_USER_DEFINED = 'user-defined';
 
+    // Action types
+    const ACTION_SENT     = 'sent';
+    const ACTION_RECEIVED = 'received';
+
     public $sendedMail = [];
 
     /**
@@ -69,9 +73,9 @@ class Template extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'action'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
-            [['supported_tags'], 'string'],
+            [['supported_tags', 'action'], 'string'],
         ];
     }
 
@@ -83,10 +87,18 @@ class Template extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'type' => Yii::t('infoweb/email', 'Type'),
+            'action' => Yii::t('infoweb/email', 'Actie'),
             'name' => Yii::t('infoweb/email', 'Name'),
             'supported_tags' => Yii::t('infoweb/email', 'Supported tags'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At')
+        ];
+    }
+
+    public function getActions() {
+        return [
+            self::ACTION_RECEIVED => Yii::t('infoweb/email', 'Received'),
+            self::ACTION_SENT => Yii::t('infoweb/email', 'Sent')
         ];
     }
 
@@ -118,7 +130,7 @@ class Template extends \yii\db\ActiveRecord
 
         return ArrayHelper::map($items, 'id', 'name');
     }
-
+  
     /**
      * Sends an email to the specified email address using the information collected by this model.
      *
