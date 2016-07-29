@@ -11,7 +11,6 @@ $this->title = Yii::t('infoweb/email', 'Template');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="template-index">
-
     <?php // Title ?>
     <h1>
         <?= Html::encode($this->title) ?>
@@ -22,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]), ['create'], ['class' => 'btn btn-success']) ?>    
         </div>
     </h1>
-    
+
     <?php // Flash messages ?>
     <?php echo $this->render('_flash_messages'); ?>
 

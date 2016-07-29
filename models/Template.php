@@ -9,7 +9,7 @@ use yii\helpers\Inflector;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 
-use dosamigos\translateable\TranslateableBehavior;
+use creocoder\translateable\TranslateableBehavior;
 
 use infoweb\email\models\TemplateLang;
 
@@ -46,7 +46,7 @@ class Template extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return ArrayHelper::merge(parent::behaviors(), [
-            'trans' => [
+            'translateable' => [
                 'class' => TranslateableBehavior::className(),
                 'translationAttributes' => [
                     'to',
