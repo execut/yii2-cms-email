@@ -14,6 +14,8 @@ use kartik\datecontrol\DateControl;
         ]
     ]); ?>
 
+    <?= $form->field($model, 'action')->dropDownList($model->getActions(), []); ?>
+
     <?= $form->field($model, "name")->textInput(); ?>
 
 </div>

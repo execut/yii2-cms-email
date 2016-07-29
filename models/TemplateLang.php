@@ -53,8 +53,8 @@ class TemplateLang extends ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['language', 'to', 'from', 'subject', 'message'], 'required'],
+        $rules = [
+            [['language', 'from', 'subject', 'message'], 'required'],
             [['email_template_id', 'created_at', 'updated_at'], 'integer'],
             [['to', 'bcc', 'from', 'subject'], 'string', 'max' => 255],
             [['message'], 'string'],
@@ -64,6 +64,8 @@ class TemplateLang extends ActiveRecord
                 return !$model->isNewRecord;
             }]
         ];
+ 
+        return $rules;
     }
 
     /**

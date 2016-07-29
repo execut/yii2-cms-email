@@ -5,9 +5,11 @@ use infoweb\cms\helpers\LanguageHelper;
 ?>
 <div class="tab-content default-language-tab">
 
-    <?= $form->field($model, "[{$model->language}]to")->textInput([
-        'name' => "TemplateLang[{$model->language}][to]"
-    ]); ?>
+    <div class="template-email-to">
+        <?= $form->field($model, "[{$model->language}]to")->textInput([
+            'name' => "TemplateLang[{$model->language}][to]"
+        ]); ?>
+    </div>
 
     <?= $form->field($model, "[{$model->language}]bcc")->textInput([
         'name' => "TemplateLang[{$model->language}][bcc]"

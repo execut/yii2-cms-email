@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use yii\bootstrap\Tabs;
-use infoweb\news\assets\NewsAsset;
+use infoweb\email\assets\TemplateAsset;
 
 // Register asset bundle(s)
-NewsAsset::register($this);
+TemplateAsset::register($this);
 
 ?>
 <div class="news-form">
@@ -29,17 +29,17 @@ NewsAsset::register($this);
     // Add the main tabs
     $tabs = [
         [
-            'label' => Yii::t('app', 'General'),
-            'content' => $this->render('_default_tab', ['model' => $model, 'form' => $form]),
-            'active' => true,
-        ],
-        [
-            'label' => Yii::t('app', 'Data'),
+            'label' => Yii::t('app', 'Settings'),
             'content' => $this->render('_data_tab', [
                 'model' => $model,
                 'form' => $form,
+                'active' => true,
             ]),
         ],
+        [
+            'label' => Yii::t('app', 'Email'),
+            'content' => $this->render('_default_tab', ['model' => $model, 'form' => $form]),
+        ]
     ];
 
     // Display the tabs
