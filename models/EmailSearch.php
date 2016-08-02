@@ -35,9 +35,11 @@ class EmailSearch extends Email
     public function search($params)
     {
         // Transform the date to a unix timestamp for usage in the search query
-        if (isset($params['EmailSearch']['created_at'])) {
+        if (isset($params['EmailSearch']['created_at']) && trim($params['EmailSearch']['created_at']) != '') {
             $origDate = $params['EmailSearch']['created_at'];
-            $params['EmailSearch']['created_at'] = strtotime($params['EmailSearch']['created_at']);
+            $dateCreated = strtotime($origDate);
+            $dateCreatedBeginOfDay = \DateTime::createFromFormat('Y-m-d H:i:s', (new \DateTime())->setTimestamp($dateCreated)->format('Y-m-d 00:00:00'))->getTimestamp();
+            $dateCreatedEndOfDay = \DateTime::createFromFormat('Y-m-d H:i:s', (new \DateTime())->setTimestamp($dateCreated)->format('Y-m-d 23:59:59'))->getTimestamp();
         }
 
         $query = Email::find();
@@ -57,17 +59,17 @@ class EmailSearch extends Email
             return $dataProvider;
         }
 
-        if ($this->created_at) {
-            $query->andFilterWhere(['created_at' => $this->created_at]);
+        if (isset($dateCreatedBeginOfDay) && isset($dateCreatedEndOfDay)) {
+            $query->andFilterWhere(['between', 'created_at', $dateCreatedBeginOfDay, $dateCreatedEndOfDay]);
+
+            // Format the date for display
+            $this->created_at = date('d-m-Y', $dateCreated);
         }
 
         $query->andFilterWhere(['like', 'subject', $this->subject]);
         $query->andFilterWhere(['like', 'from', $this->from]);
         $query->andFilterWhere(['like', 'to', $this->to]);
         $query->andFilterWhere(['like', 'form', $this->form]);
-
-        // Format the date for display
-        $this->created_at = $origDate;
 
         return $dataProvider;
     }
