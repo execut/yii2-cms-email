@@ -13,7 +13,8 @@ EmailAsset::register($this);
 $this->title = Yii::t('infoweb/email', 'Emails');
 $this->params['breadcrumbs'][] = $this->title;
 
-$buttonsTemplate = (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? '{update} {delete}' : '{update} {delete} {resend}';
+$resend = (Yii::$app->getModule('email')->enableResent) ? ' {resend}' : '';
+$buttonsTemplate = (Yii::$app->session->get('emails.actionType') != Email::ACTION_SENT) ? '{update} {delete}' : '{update} {delete}'.$resend;
 
 // Set the gridColumns
 $gridColumns = [
@@ -71,21 +72,30 @@ $gridColumns = [
 ];
 ?>
 <div class="email-index">
-    <?php // Title ?>
+    <?php // Title
+
+    $actionTypes = Email::actionTypes();
+    if(!Yii::$app->getModule('email')->enableSent) {
+        unset( $actionTypes[Email::ACTION_SENT] );
+    }
+
+    ?>
     <h1>
         <?= Html::encode($this->title) ?>
         : <?php echo Html::radioButtonGroup(
             'actionType',
             Yii::$app->session->get('emails.actionType'),
-            Email::actionTypes()
+            $actionTypes
         ); ?>
 
         <?php // Buttons ?>
         <div class="navbar-right">
-            <?= Html::a('<i class="fa fa-file-text-o" aria-hidden="true"></i>', Url::toRoute(['/email/template']), [
-                'class' => 'btn btn-default',
-                'data-pjax' => 0
-            ]) ?>
+            <?php if(Yii::$app->getModule('email')->enableTemplates || Yii::$app->user->can('Superadmin')): ?>
+                <?= Html::a('<i class="fa fa-file-text-o" aria-hidden="true"></i>', Url::toRoute(['/email/template']), [
+                    'class' => 'btn btn-default',
+                    'data-pjax' => 0
+                ]) ?>
+            <?php endif; ?>
 
             <?= ExportMenu::widget([
                 'dataProvider' => $dataProvider,

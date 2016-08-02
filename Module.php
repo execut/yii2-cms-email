@@ -18,6 +18,24 @@ class Module extends \yii\base\Module
     ];
 
     /**
+     * Enable tab link to sent e-mails
+     * @var boolean
+     */
+    public $enableSent = false;
+
+    /**
+     * Enable button to templates, will always be activated as superadmin
+     * @var boolean
+     */
+    public $enableTemplates = false;
+
+    /**
+     * Enable resend e-mail
+     * @var boolean
+     */
+    public $enableResent = false;
+
+    /**
      * Allow content duplication with the "duplicateable" plugin
      * @var boolean
      */
