@@ -116,6 +116,9 @@ class TemplateController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+        
         $model = $this->findModel($id);
         $model->delete();
 

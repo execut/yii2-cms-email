@@ -18,4 +18,7 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, "name")->textInput(); ?>
 
+    <?php if (Yii::$app->user->can('Superadmin')): ?>
+        <?= $form->field($model, "supported_tags")->textInput(); ?>
+    <?php endif; ?>
 </div>

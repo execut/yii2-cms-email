@@ -138,10 +138,12 @@ class Template extends \yii\db\ActiveRecord
      */
     public function sendEmail($data, $template = 'blank', $templateParams = [])
     {
+        $subject = $this->replaceTags($this->subject, $data);
+
         $mail = Yii::$app->mailer->compose()
             ->setTo(explode(',', str_replace(' ', '', $this->to)))
             ->setFrom($this->from)
-            ->setSubject($this->subject);
+            ->setSubject($subject);
 
         if(trim($this->bcc) != '') {
             foreach(explode(',', str_replace(' ', '', $this->bcc)) as $email) {

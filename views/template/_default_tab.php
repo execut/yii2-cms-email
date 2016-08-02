@@ -11,7 +11,8 @@ foreach (Yii::$app->params['languages'] as $languageId => $languageName) {
         'content' => $this->render('_default_language_tab', [
             'model' => $model->getTranslation($languageId),
             'form' => $form,
-            'allowContentDuplication' => $allowContentDuplication
+            'allowContentDuplication' => $allowContentDuplication,
+            'template' => $model
         ]),
         'options' => ['class' => (LanguageHelper::isRtl($languageId)) ? 'rtl' : ''],
     ];

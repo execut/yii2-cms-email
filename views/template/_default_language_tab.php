@@ -26,10 +26,16 @@ use infoweb\cms\helpers\LanguageHelper;
         'name' => "TemplateLang[{$model->language}][subject]",
         'data-duplicateable' => $allowContentDuplication ? 'true' : 'false'
     ]); ?>
+    <?php if(isset($template->supported_tags) && trim($template->supported_tags) != ''): ?>
+        <p style="margin-top: -10px;" class="help-block"><?= Yii::t('infoweb/email', 'Tags'); ?>: <?= $template->supported_tags; ?></p>
+    <?php endif; ?>
 
     <?= $form->field($model, "[{$model->language}]message")->widget(CKEditor::className(), [
         'name' => "TemplateLang[{$model->language}][message]",
         'editorOptions' => ArrayHelper::merge(Yii::$app->getModule('cms')->getCKEditorOptions(), Yii::$app->getModule('email')->ckEditorOptions, (LanguageHelper::isRtl($model->language)) ? ['contentsLangDirection' => 'rtl'] : []),
         'options' => ['data-duplicateable' => $allowContentDuplication ? 'true' : 'false'],
     ]); ?>
+    <?php if(isset($template->supported_tags) && trim($template->supported_tags) != ''): ?>
+        <p style="margin-top: -10px;" class="help-block"><?= Yii::t('infoweb/email', 'Tags'); ?>: <?= $template->supported_tags; ?></p>
+    <?php endif; ?>
 </div>
