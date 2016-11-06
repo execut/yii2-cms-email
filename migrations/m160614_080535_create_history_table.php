@@ -8,9 +8,9 @@ class m160614_080535_create_history_table extends Migration
     public function safeUp()
     {
         $this->createTable('emails_history', [
-            'email_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'email_id' => $this->integer()->notNull(),
             'action' => Schema::TYPE_STRING . '(20) NOT NULL',
-            'created_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL'
+            'created_at' => $this->integer()->unsigned()->notNull()
         ]);
 
         $this->createIndex('email_id', '{{%emails_history}}', 'email_id');

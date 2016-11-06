@@ -5,7 +5,7 @@ use yii\db\Schema;
 
 class m160728_082312_create_tables_email_templates extends Migration
 {
-    public function up()
+    public function safeUp()
     {
         $tableOptions = null;
 
@@ -15,31 +15,31 @@ class m160728_082312_create_tables_email_templates extends Migration
 
         $this->createTable('{{%emails_templates}}', [
             'id' => $this->primaryKey(),
-            'type' => "ENUM('system','user-defined') NOT NULL DEFAULT 'user-defined'",
-            'name' => Schema::TYPE_STRING . '(255) NOT NULL',
-            'supported_tags' => Schema::TYPE_TEXT . ' NOT NULL',
-            'created_at'  => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
-            'updated_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
+            'type' => "pages_type NOT NULL DEFAULT 'user-defined'",
+            'name' => $this->string()->notNull(),
+            'supported_tags' => $this->text()->notNull(),
+            'created_at'  => $this->integer()->unsigned()->notNull(),
+            'updated_at' => $this->integer()->unsigned()->notNull(),
         ], $tableOptions);
 
         $this->createTable('{{%emails_templates_lang}}', [
-            'email_template_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'language' => Schema::TYPE_STRING . '(10) NOT NULL',
-            'to' => Schema::TYPE_STRING . '(255) NOT NULL',
-            'bcc' => Schema::TYPE_STRING . '(255) NOT NULL',
-            'from' => Schema::TYPE_STRING . '(255) NOT NULL',
-            'subject' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'email_template_id' => $this->integer()->notNull(),
+            'language' => $this->string(10)->notNull(),
+            'to' => $this->string()->notNull(),
+            'bcc' => $this->string()->notNull(),
+            'from' => $this->string()->notNull(),
+            'subject' => $this->string()->notNull(),
             'message' => Schema::TYPE_TEXT . ' NOT NULL',
-            'created_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
-            'updated_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL'
+            'created_at' => $this->integer()->unsigned()->notNull(),
+            'updated_at' => $this->integer()->unsigned()->notNull()
         ], $tableOptions);
 
         $this->addPrimaryKey('email_template_id_language', '{{%emails_templates_lang}}', ['email_template_id', 'language']);
-        $this->createIndex('language', '{{%emails_templates_lang}}', 'language');
+        $this->createIndex('emails_templates_lang_language_i', '{{%emails_templates_lang}}', 'language');
         $this->addForeignKey('FK_EMAILS_TEMPLATES_LANG_EMAILS_TEMPLATES_ID', '{{%emails_templates_lang}}', 'email_template_id', '{{%emails_templates}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
-    public function down()
+    public function safeDown()
     {
         $this->dropTable('{{%emails_templates}}');
         $this->dropTable('{{%emails_templates_lang}}');
